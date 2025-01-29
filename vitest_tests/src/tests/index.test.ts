@@ -1,19 +1,36 @@
 import {expect, it, describe, vi} from "vitest";
 import { app } from "..";
 import request from "supertest"
-import { prisma } from "../db";
+import { prisma } from "../__mocks__/db";
 
-vi.mock("../db", () => ({
-    prisma: {sum : {create: vi.fn()}}
-}))
+vi.mock("../db")
+
+
 describe("POST /sum", () => {
     it('should return sum of two numbers', async () => {
+        prisma.sum.create.mockResolvedValue({
+            id: 1,
+            a: 1,
+            b: 2,
+            result: 3
+        })
+
+        vi.spyOn(prisma.sum, "create")
         const res = await request(app).post("/sum").send({
             a: 1,
             b: 2
         })
 
+        expect(prisma.sum.create).toHaveBeenCalledWith({
+            data: {
+                a: 1,
+                b: 2,
+                result: 3
+            }
+        })
+
         expect(res.statusCode).toBe(200)
+        expect(res.body.id).toBe(1)
         expect(res.body.answer).toBe(3)
     })
 
