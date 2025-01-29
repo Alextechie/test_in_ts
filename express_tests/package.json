@@ -1,0 +1,27 @@
+{
+  "name": "express_tests",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc -b",
+    "start": "node dist/index.js",
+    "dev": "tsc -b && node dist/index.js",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@jest/globals": "^29.7.0",
+    "ts-jest": "^29.2.5"
+  },
+  "dependencies": {
+    "@types/express": "^5.0.0",
+    "@types/supertest": "^6.0.2",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "supertest": "^7.0.0",
+    "zod": "^3.24.1"
+  }
+}
